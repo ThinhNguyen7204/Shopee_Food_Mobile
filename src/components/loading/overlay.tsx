@@ -1,6 +1,6 @@
 import { View, StyleSheet, ActivityIndicator } from "react-native";
 
-interface IProps { }
+interface IProps {}
 
 const styles = StyleSheet.create({
   loading: {

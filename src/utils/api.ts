@@ -1,5 +1,6 @@
 import axios from "@/utils/axios.customize";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Platform } from "react-native";
 
 
 export const registerAPI = (email: string, password: string, name: string) => {
@@ -53,5 +54,49 @@ export const printAsyncStorage = () => {
             console.log(JSON.stringify(asyncStorage, null, 2));
         });
     });
+}
+
+export const getURLBaseBackend = () => {
+    const backend =
+        Platform.OS === "android"
+            ? process.env.EXPO_PUBLIC_ANDROID_API_URL
+            : process.env.EXPO_PUBLIC_IOS_API_URL;
+    return backend
+
+}
+
+export const getRestaurantByIdAPI = (id: string) => {
+    const url = `/api/v1/restaurants/${id}`;
+    return axios.get<IBackendRes<IRestaurant>>(url);
+};
+
+export const processDataRestaurantMenu = (restaurant: IRestaurant | null) => {
+    if (!restaurant) return [];
+    return restaurant?.menu?.map((menu, index) => {
+        return {
+            index,
+            key: menu._id,
+            title: menu.title,
+            data: menu.menuItem
+        }
+    })
+}
+
+export const currencyFormatter = (value: any) => {
+    const options = {
+        significantDigits: 2,
+        thousandsSeparator: '.',
+        decimalSeparator: ',',
+        symbol: 'đ'
+    }
+
+    if
+        (typeof value !== 'number') value = 0.0
+    value = value.toFixed(options.significantDigits)
+    const [currency, decimal] = value.split('.')
+    return `${currency.replace(
+        /\B(?=(\d{3})+(?!\d))/g,
+        options.thousandsSeparator
+    )}${options.symbol}`
 }
 
