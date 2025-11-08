@@ -12,42 +12,42 @@ interface IProps {
 const ItemQuantity = (props: IProps) => {
   const { menuItem, restaurant } = props;
 
-  // const { cart, setCart } = useCurrentApp();
+  const { cart, setCart } = useCurrentApp();
 
-  // const handlePressItem = (item: IMenuItem, action: "MINUS" | "PLUS") => {
-  //   if (restaurant?._id) {
-  //     const total = action === "MINUS" ? -1 : 1;
+  const handlePressItem = (item: IMenuItem, action: "MINUS" | "PLUS") => {
+    if (restaurant?._id) {
+      const total = action === "MINUS" ? -1 : 1;
 
-  //     //restaurant is not exist!
-  //     if (!cart[restaurant?._id]) {
-  //       cart[restaurant._id] = {
-  //         sum: 0,
-  //         quantity: 0,
-  //         items: {},
-  //       };
-  //       cart[restaurant._id].sum = 0;
-  //       cart[restaurant._id].quantity = 0;
-  //       cart[restaurant._id].items = {};
-  //     }
+      //restaurant is not exist!
+      if (!cart[restaurant?._id]) {
+        cart[restaurant._id] = {
+          sum: 0,
+          quantity: 0,
+          items: {},
+        };
+        cart[restaurant._id].sum = 0;
+        cart[restaurant._id].quantity = 0;
+        cart[restaurant._id].items = {};
+      }
 
-  //     cart[restaurant._id].sum = cart[restaurant._id].sum + total * item.basePrice;
-  //     cart[restaurant._id].quantity = cart[restaurant._id].quantity + total;
+      cart[restaurant._id].sum = cart[restaurant._id].sum + total * item.basePrice;
+      cart[restaurant._id].quantity = cart[restaurant._id].quantity + total;
 
-  //     // Check product is exist
-  //     if (!cart[restaurant._id].items[item._id]) {
-  //       cart[restaurant._id].items[item._id] = {
-  //         data: menuItem,
-  //         quantity: 0,
-  //       };
-  //     }
+      // Check product is exist
+      if (!cart[restaurant._id].items[item._id]) {
+        cart[restaurant._id].items[item._id] = {
+          data: menuItem,
+          quantity: 0,
+        };
+      }
 
-  //     cart[restaurant._id].items[item._id] = {
-  //       data: menuItem,
-  //       quantity: cart[restaurant._id].items[item._id].quantity + total,
-  //     };
-  //   }
-  //   console.log(cart);
-  // };
+      cart[restaurant._id].items[item._id] = {
+        data: menuItem,
+        quantity: cart[restaurant._id].items[item._id].quantity + total,
+      };
+    }
+    console.log(cart);
+  };
 
   return (
     <View
@@ -94,7 +94,7 @@ const ItemQuantity = (props: IProps) => {
                   alignSelf: "flex-start", //fit-content
                 },
               ]}
-            // onPress={() => handlePressItem(menuItem, "MINUS")}
+              onPress={() => handlePressItem(menuItem, "MINUS")}
             >
               <AntDesign
                 name="minussquareo"
@@ -110,7 +110,7 @@ const ItemQuantity = (props: IProps) => {
                   alignSelf: "flex-start", //fit-content
                 },
               ]}
-            // onPress={() => handlePressItem(menuItem, "PLUS")}
+              onPress={() => handlePressItem(menuItem, "PLUS")}
             >
               <AntDesign name="plussquare" size={24} color={APP_COLOR.ORANGE} />
             </Pressable>
