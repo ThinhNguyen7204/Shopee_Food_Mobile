@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 const backend = Platform.OS === "android" ? process.env.EXPO_PUBLIC_ANDROID_API_URL : process.env.EXPO_PUBLIC_IOS_API_URL;
 const instance = axios.create({
     baseURL: backend,
-    timeout: 5 * 1000,
+    timeout: 60 * 1000,
 });
 
 // Add a request interceptor
